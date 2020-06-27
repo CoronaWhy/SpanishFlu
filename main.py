@@ -5,8 +5,9 @@ import re
 from codecs import encode
 from tqdm import tqdm
 from ast import literal_eval
-from config import citationfile, DEBUG, keywords, DATA_PATH, PRETRAINED_MODEL_PATH
+from config import citationfile, DEBUG, keywords, DATA_PATH, PRETRAINED_MODEL_PATH, languages
 import chardet
+from language_extracter import language_extractions
 
 model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 
@@ -39,7 +40,12 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
                             if DEBUG:
                                 print("[%s] %s" % (data['date'], item))
                             else:
-                                citation = "\"%s\"\n\tSource: %s, %s, %s" % (item, data['alternative'], data['date'], data['url'])
+                                try:
+                                    citation = "\"%s\"\n\tSource: %s, %s, %s" % (item, data['alternative'], data['date'], data['url'])
+                                except KeyError:
+                                    print ("File name: {} has insufficient attributes, adding just source urn".format(os.path.join(DATA_PATH,name)))
+                                    citation = "\"%s\"\n\tSource: %s" % (item, data['url'])
+
                                 citations.write("%s\n\n" % citation)
             
             predictions = model.predict(sentences)
@@ -73,6 +79,9 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
 if not DEBUG:
     citations.close()
 print (overall_stats)
+
+#Running separate language extraction to check english sentences
+language_extractions(languages,model,keywords)
 
 
 
