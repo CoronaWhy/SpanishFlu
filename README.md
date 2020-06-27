@@ -6,7 +6,7 @@ Download the latest version of the [KB Spanish flu dataset] (http://datasets.cor
 wget http://datasets.coronawhy.org/api/access/datafile/410489 -O data.tar.gz
 gzip -cd data.tar.gz|tar xf -
 ```
-# Models
+# Installation
 Download Language Identification Model:
 ```
 wget https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin
@@ -15,3 +15,8 @@ Install fasttext module
 ```
 pip install fasttext
 ``` 
+# Usage
+Run Language Detection process
+```
+python3 ./main.py
+```
