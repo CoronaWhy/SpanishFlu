@@ -23,6 +23,8 @@ Run Language Detection process
 ```
 python3 ./main.py
 ```
+# Results
+File citations.txt with relevant fragments will be produced based on keywords defined in config.py 
 # CoronaWhy infrastructure
 You can also do full-text search in the whole collection by querying Elasticsearch index spanishflu
 ```
