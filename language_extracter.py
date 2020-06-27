@@ -34,7 +34,7 @@ def language_extractions(languages, model, filters=[]):
                         lang_detected = prediction[0][0].replace('__label__','')
                         if lang_detected == lang:
                             if len(filters)>0:
-                                if any(keyword in item.lower() for keyword in filters):
+                                if any(re.search(keyword, item, re.IGNORECASE) for keyword in filters):
                                     sentences.append(item)
                                     to_write = "\"%s\"\n\tSource: %s" % (item, data['url'])
                                     language_sentences.write("%s\n\n" % to_write)
