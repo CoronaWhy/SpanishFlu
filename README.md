@@ -1,6 +1,6 @@
-# Spanish Flu research framework
-Using ML techniques to overlay Spanish Flu data on COVID-19. You can find all datasets published in [CoronaWhy Data Lake](http://datasets.coronawhy.org/dataverse/pandemics).
-# Video with meetings
+# CoronaWhy Spanish Flu research framework
+Using ML techniques to overlay (CoronaWhy](https://www.coronawhy.org) Spanish Flu data on COVID-19. You can find all datasets published in [CoronaWhy Data Lake](http://datasets.coronawhy.org/dataverse/pandemics).
+# Regualar meetings
 We're sharing all meetings on YouTube, please feel free to join us if you would like to contribute.
 - [Kick-off #team-social-analysis](https://www.youtube.com/watch?v=z2RLU9J0Fv0)
 - [Discussion about datasets and goals](https://www.youtube.com/watch?v=8Z7Gm954aVQ&feature=youtu.be)
