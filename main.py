@@ -4,11 +4,9 @@ import os
 from codecs import encode
 from tqdm import tqdm
 from ast import literal_eval
+from config import DATA_PATH, PRETRAINED_MODEL_PATH
 import chardet
 
-DATA_PATH = 'data'
-
-PRETRAINED_MODEL_PATH = 'lid.176.bin'
 model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 
 overall_stats = dict()
