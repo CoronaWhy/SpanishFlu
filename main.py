@@ -1,15 +1,20 @@
 import fasttext
 import json 
 import os
+import re
 from codecs import encode
 from tqdm import tqdm
 from ast import literal_eval
-from config import DATA_PATH, PRETRAINED_MODEL_PATH
+from config import citationfile, DEBUG, keywords, DATA_PATH, PRETRAINED_MODEL_PATH
 import chardet
 
 model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 
 overall_stats = dict()
+sentdict = {}
+
+if not DEBUG:
+    citations = open(citationfile, "w+")
 
 for root,dirs,files in os.walk(DATA_PATH, topdown=True):
     for name in tqdm(files):
@@ -26,8 +31,16 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
                 all_sentences.extend(i.split('\n'))
             sentences = []
             for item in (all_sentences):
-                if len(item)>20:
-                    sentences.append(item)
+                for keyword in keywords:
+                    if re.search(keyword, item, re.IGNORECASE):
+                        if not item in sentdict:
+                            sentences.append(item)
+                            sentdict[item] = name
+                            if DEBUG:
+                                print("[%s] %s" % (data['date'], item))
+                            else:
+                                citation = "\"%s\"\n\tSource: %s, %s, %s" % (item, data['alternative'], data['date'], data['url'])
+                                citations.write("%s\n\n" % citation)
             
             predictions = model.predict(sentences)
             doc_lang = dict()
@@ -57,6 +70,8 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
             json.dump(data,f)
             
 
+if not DEBUG:
+    citations.close()
 print (overall_stats)
 
 
