@@ -14,7 +14,11 @@ overall_stats = dict()
 for root,dirs,files in os.walk(DATA_PATH, topdown=True):
     for name in tqdm(files):
         with open(os.path.join(DATA_PATH,name),mode="r+") as f:
-            data = json.load(f)
+            try:
+                data = json.load(f)
+            except:
+                print("File %s has errors" % os.path.join(DATA_PATH,name))
+                continue
             x = literal_eval(data['text'])
             temp = x.decode('utf-8').split('\r\n')
             all_sentences = []
