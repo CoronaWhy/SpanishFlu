@@ -7,7 +7,7 @@ We're sharing all meetings on YouTube, please feel free to join us if you would 
 # Datasets
 Download the latest version of the [KB Spanish flu dataset](http://datasets.coronawhy.org/dataset.xhtml?persistentId=doi:10.5072/FK2/WPIDZZ)
 ```
-wget http://datasets.coronawhy.org/api/access/datafile/480752 -O data.tar.gz;gzip -cd data.tar.gz|tar xf -
+wget http://datasets.coronawhy.org/api/access/datafile/503748 -O data.tar.gz;gzip -cd data.tar.gz|tar xf -
 ```
 # Framework installation
 Download Language Identification Model:
