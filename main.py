@@ -13,6 +13,7 @@ model = fasttext.load_model(PRETRAINED_MODEL_PATH)
 
 overall_stats = dict()
 sentdict = {}
+monthstats = {}
 
 if not DEBUG:
     citations = open(citationfile, "w+")
@@ -30,6 +31,15 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
             if re.match(years, data['date']):
                 if DEBUG:
                     print("Publication date: %s" % data['date'])
+                g = re.search('\d+\-(\d+)\-\d+', data['date'])
+
+                # Calculating statistics on months
+                pubmonth = g.group(1)
+                if pubmonth in monthstats:
+                    monthstats[pubmonth] = monthstats[pubmonth] + 1
+                else:
+                    monthstats[pubmonth] = 1
+
                 x = literal_eval(data['text'])
                 temp = x.decode('utf-8').split('\r\n')
                 all_sentences = []
@@ -81,6 +91,7 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
             json.dump(data,f)
             
 
+print(monthstats)
 if not DEBUG:
     citations.close()
 print (overall_stats)
