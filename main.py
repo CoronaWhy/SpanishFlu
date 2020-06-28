@@ -28,7 +28,8 @@ for root,dirs,files in os.walk(DATA_PATH, topdown=True):
 
             # Default is to process all years, use filter on yeas in config.py otherwise
             if re.match(years, data['date']):
-                print(data['date'])
+                if DEBUG:
+                    print("Publication date: %s" % data['date'])
                 x = literal_eval(data['text'])
                 temp = x.decode('utf-8').split('\r\n')
                 all_sentences = []
